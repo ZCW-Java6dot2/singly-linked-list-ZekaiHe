@@ -138,13 +138,18 @@ public class SinglyLinkedList<E> {
 
     public SinglyLinkedList<E> sort(){ //bubblesort because mergesort is so hard...swapping node values, moving pointers would cause mass confusion
         boolean isSorted;
-        for (Node i = head; i != null; i = i.next){
-            for(Node j = i.next;j != null; j = j.next){
-                if((Integer)i.getValue() > (Integer)j.getValue()){ //had to cast to use > operator
-                    E tempValue = i.getValue();
-                    i.setValue(j.getValue());
-                    j.setValue(tempValue);
+        for (Node i = head; i.next != null; i = i.next){
+            isSorted = true;
+            for(Node j = head ;j.next != null; j = j.next){
+                if((Integer)j.getValue() > (Integer)j.next.getValue()){ //had to cast to use > operator
+                    E tempValue = j.getValue();
+                    j.setValue(j.next.getValue());
+                    j.next.setValue(tempValue);
+                    isSorted = false;
                 }
+            }
+            if(isSorted){
+                break;
             }
         }
         return this;
